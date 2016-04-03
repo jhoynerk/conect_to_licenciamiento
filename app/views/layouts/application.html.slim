@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Producto test seriales
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    .row
+      .col.s12.m12.l12
+        - if flash[:alert]
+            #alert.hide = flash[:alert]
+        - if flash[:notice]
+            #notice.hide = flash[:notice]
+        .card-panel.z-depth-4
+          = yield
