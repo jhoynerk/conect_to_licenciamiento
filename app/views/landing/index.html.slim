@@ -5,17 +5,19 @@
     = text_field_tag :serial
   .input-field
     = button_tag('Agregar', class: 'right btn blue', id: "send_serial")
+    = button_tag('Remover', class: 'left btn red', id: "remove_serial", data: {:confirm => '¿Estás seguro que quiere remover esta licencia?'})
 .clearfix
 
 
 javascript:
   $(document).ready(function(){
+    http = "http://192.168.1.108:3000";
     $('#send_serial').on('click', function(){
       if( $('#serial').val() != ''){
         serial = $('#serial').val();
         $.ajax({
           type: "POST",
-          url: "http://192.168.1.108:3000/validate_licenses.json",
+          url: http+"/validate_licenses.json",
           dataType: "json",
           headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -27,12 +29,29 @@ javascript:
               success_notification(response.message);
             }else{
               alert_notification(response.message);
-              //$('#serial_data').html(data.responseJSON.remote_ip)
             }
           }
         });
       }else{
         alert_notification('Debes ingresar un serial!');
       }
-    })
+    });
+    $('#remove_serial').on('click', function(){
+      $.ajax({
+        type: "POST",
+        url: http+"/remove_licenses.json",
+        dataType: "json",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        complete: function(data){
+          response = data.responseJSON;
+          if (response.valid==true){
+            success_notification(response.message);
+          }else{
+            alert_notification(response.message);
+          }
+        }
+      });
+    });
   });
