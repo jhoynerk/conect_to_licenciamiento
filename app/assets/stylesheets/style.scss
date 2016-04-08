@@ -2,4 +2,10 @@
 
 #toast-container{
   right: 5;
+  div{
+    width: 400px!important;
+  }
+}
+.toast-message{
+  word-break: normal!important;
 }
