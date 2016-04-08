@@ -24,5 +24,6 @@ module ConectToLicenciamiento
     config.active_record.raise_in_transactional_callbacks = true
     config.web_console.whitelisted_ips = '192.168.1.105'
     config.web_console.whiny_requests = false
+    config.secret_key_base = ENV["SECRET_KEY_BASE"]
   end
 end
